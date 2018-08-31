@@ -42,15 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',      #配置 rest_framework app
+    'rest_framework.authtoken',  # 设置token
+    # 'corsheaders'           #跨域
 
     'Reporter.apps.user.apps.UserConfig',
+    'Reporter.apps.search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',   #跨域
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',   #csrf
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -143,5 +147,14 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
 
+# 跨域白名单
+CORS_ORIGIN_WHITELIST = (
+    #'*'
+    '127.0.0.1:8080',# 请求的域名
+    'localhost:8080',
+    'localhost',
+)
+
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 

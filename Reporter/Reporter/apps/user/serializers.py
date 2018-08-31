@@ -81,7 +81,7 @@ class UserQuerySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reporters
-        fields = ('id', 'name', 'mobile', 'Industry_Id', 'Company_Id')
+        fields = ('id', 'name', 'mobile', 'Industry_Id', 'Company_Id', 'Manuscript_Id')
 
         def validate_user_id(self, value):
             try:
@@ -91,5 +91,5 @@ class UserQuerySerializer(serializers.ModelSerializer):
             except Exception as f:
                 raise serializers.ValidationError('用户不存在')
 
-            for industryId in reporter:
+            # for industryId in reporter:
 
