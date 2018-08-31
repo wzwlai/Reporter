@@ -73,3 +73,23 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reporters
         fields = ('id', 'name', 'mobile')
+
+
+class UserQuerySerializer(serializers.ModelSerializer):
+    """通过记者查询的序列化器"""
+    searchTerm = serializers.CharField(label='记者名', write_only=True)
+
+    class Meta:
+        model = Reporters
+        fields = ('id', 'name', 'mobile', 'Industry_Id', 'Company_Id')
+
+        def validate_user_id(self, value):
+            try:
+                reporter = Reporters.objects.filter(name=value['searchTerm'])
+                if len(reporter)==0:
+                    reporter = Reporters.objects.filter(mobile=value['searchTerm'])
+            except Exception as f:
+                raise serializers.ValidationError('用户不存在')
+
+            for industryId in reporter:
+
